@@ -1,0 +1,121 @@
+.input {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 20vw;
+  position: relative;
+  align-items: center;
+  justify-content: center;
+  background-image: url("../Resources/weather_graphic.png");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  margin: 0px 0px;
+}
+.input_box {
+  transition: 0.4s;
+  /* box-shadow: inset 0 0 5px black; */
+  border-color: lightgray !important;
+  z-index: 0;
+  padding: 10px 15px;
+}
+.input_box:focus {
+  box-shadow: 0 0 10px 1000px rgba(0, 0, 0, 0.2);
+  outline: none;
+  transition: 0.4s;
+}
+.input_submit {
+  background-color: #023d5f !important;
+  transition: 0.2s all !important;
+  color: white !important;
+  border-color: #ced4da !important;
+  border-width: 1px 1px 1px 0px !important;
+}
+.input_submit:hover {
+  background-color: #156c9e !important;
+  transition: 0.4s !important;
+}
+.input_submit:active {
+  transform: scale(0.8);
+  box-shadow: 0 black;
+}
+.input-group {
+  width: 90%;
+  justify-content: center;
+  align-content: center;
+  height: 30%;
+  margin: 5px auto;
+  padding: 10px;
+}
+.input-group > * {
+  font-size: medium;
+}
+.input-group > input {
+  font-size: calc(1.5vw);
+}
+#input-desc {
+  height: 30%;
+  margin: 5px auto;
+  font-size: x-large;
+}
+#root
+  > div
+  > div:nth-child(2)
+  > div
+  > div
+  > span:nth-child(1)
+  > div
+  > form
+  > div {
+  background-color: rgba(173, 216, 230, 0.658);
+  border: none;
+  border-radius: 15px;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-content: center;
+  width: 60%;
+}
+#root
+  > div
+  > div:nth-child(2)
+  > div
+  > div
+  > span:nth-child(1)
+  > div
+  > form
+  > div
+  > hr {
+  margin: 4px auto;
+  height: 2px;
+  color: #00446a;
+  opacity: 100%;
+  width: 75%;
+}
+#input-desc > p {
+  margin: 0;
+}
+
+@media (max-width: 768px) {
+  .input {
+    height: auto;
+    width: 100%;
+  }
+  #root > div > span:nth-child(2) > div > form > div {
+    width: 100%;
+    border-radius: 0px;
+  }
+
+  .input_box {
+    padding: 5px;
+  }
+
+  .input-group {
+    width: 100%;
+  }
+
+  .input-group > input {
+    font-size: 16px;
+  }
+}

@@ -1,0 +1,69 @@
+.App {
+  text-align: center;
+  background-color: #ffff;
+}
+
+.heading {
+  background: linear-gradient(135deg, #00446a, #002235) !important;
+  min-height: 10vh;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: left;
+  font-size: calc(10px + 2vmin);
+  color: white;
+  z-index: 1;
+  padding: 10px;
+  width: 70%;
+}
+.heading > span {
+  color: #f08b1d;
+}
+#header-bar {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  width: 100%;
+}
+#router-div {
+  width: 30%;
+  height: 100%;
+}
+#router-links {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  list-style: none;
+}
+#root > div > div {
+  width: 100%;
+  margin: auto;
+}
+#about {
+  border: none;
+  border-radius: 15px;
+  background-color: rgba(173, 216, 230, 0.658);
+  padding: 10px;
+  width: 100%;
+  margin: 10px auto;
+}
+
+@media (max-width: 800px) {
+  .heading {
+    font-size: 35px;
+    margin: 0 0 0 0;
+  }
+  #about {
+    font-size: 0.8rem;
+    padding: 5px;
+  }
+}
+@media (max-width: 768px) {
+  .heading {
+    justify-content: center;
+  }
+
+  #about {
+    margin: 5px auto;
+  }
+}

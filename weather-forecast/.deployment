@@ -1,0 +1,2 @@
+[config]
+excludeFiles = node_modules/azure-functions-core-tools node_modules/typescript
