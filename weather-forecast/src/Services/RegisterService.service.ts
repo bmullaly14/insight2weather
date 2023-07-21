@@ -1,13 +1,13 @@
 import React from "react";
 import { User } from "../model";
 
-const url = "http://localhost:5050/login";
+const url = "http://localhost:5050/login/register";
 
-export async function LoginService() {
+export async function RegisterService(user: string, pass: string) {
   try {
     let current = {
-      username: sessionStorage.getItem("username"),
-      password: sessionStorage.getItem("password"),
+      username: user,
+      password: pass,
     };
 
     const response = await fetch(url, {
@@ -29,4 +29,4 @@ export async function LoginService() {
   }
 }
 
-export default LoginService;
+export default RegisterService;

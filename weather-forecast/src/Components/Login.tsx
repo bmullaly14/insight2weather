@@ -6,16 +6,24 @@ import LoginApi from "../Services/LoginService.service";
 
 function Login() {
   function setName(name: string) {
-    localStorage.setItem("username", name);
+    sessionStorage.setItem("username", name);
   }
   function setPass(pass: string) {
-    localStorage.setItem("password", pass);
+    sessionStorage.setItem("password", pass);
   }
   function setToken(token: string) {
-    localStorage.setItem("token", token);
+    sessionStorage.setItem("token", token);
   }
 
-  const handleSubmit = async (event: React.SyntheticEvent) => {
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+    const form = event.currentTarget;
+    if (!form.checkValidity()) {
+      event.preventDefault();
+      event.stopPropagation();
+    }
+
+    form.classList.add("was-validated");
+
     event.preventDefault();
     try {
       const response = await LoginApi();
@@ -50,7 +58,12 @@ function Login() {
 
   return (
     <div>
-      <form className="needs-validation row g-3" id="loginForm" noValidate>
+      <form
+        className="needs-validation row g-3"
+        id="loginForm"
+        onSubmit={handleSubmit}
+        noValidate
+      >
         <div id="inputDiv">
           <div className="col-6 log-input">
             <label htmlFor="username" className="form-label">
@@ -65,6 +78,7 @@ function Login() {
               }}
               required
             />
+            <div className="invalid-feedback">Please enter a username</div>
           </div>
           <div className="col-6 log-input">
             <label htmlFor="password" className="form-label">
@@ -79,14 +93,15 @@ function Login() {
               }}
               required
             />
+            <div className="invalid-feedback">Please enter a password</div>
           </div>
           <div className="col-4">
             <button
               className="btn btn-primary btn-success"
               type="submit"
-              onClick={(e) => {
-                handleSubmit(e);
-              }}
+              // onSubmit={(e) => {
+              //   handleSubmit(e);
+              // }}
             >
               Login
             </button>

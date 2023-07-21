@@ -13,6 +13,10 @@ export interface User {
   pass?: string;
   token: string;
 }
+export interface GreetingProps {
+  isRegistered: boolean;
+  outUser: string;
+}
 
 export interface NWSResponse {
   "@context": [
