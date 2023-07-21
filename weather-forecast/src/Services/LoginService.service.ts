@@ -6,8 +6,8 @@ const url = "http://localhost:5050/login";
 export async function LoginService() {
   try {
     let current = {
-      username: sessionStorage.getItem("username"),
-      password: sessionStorage.getItem("password"),
+      Username: sessionStorage.getItem("username"),
+      Password: sessionStorage.getItem("password"),
     };
 
     const response = await fetch(url, {

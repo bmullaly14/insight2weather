@@ -21,6 +21,10 @@ const App: React.FC = () => {
   const [token, setToken] = useState<string>("");
   const [user, setUser] = useState<User>();
 
+  function LogOut() {
+    sessionStorage.clear();
+  }
+
   return (
     <div className="App">
       <div id="header-bar">
@@ -37,6 +41,11 @@ const App: React.FC = () => {
             </li>
             <li>
               <Link to="/user/register">Register</Link>
+            </li>
+            <li>
+              <Link to="/" onClick={LogOut}>
+                Logout
+              </Link>
             </li>
           </ul>
         </div>

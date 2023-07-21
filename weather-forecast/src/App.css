@@ -2,9 +2,10 @@
   text-align: center;
   background-color: #ffff;
 }
-
-.heading {
+#header-bar {
   background: linear-gradient(135deg, #00446a, #002235) !important;
+}
+.heading {
   min-height: 10vh;
   display: flex;
   flex-direction: row;
@@ -46,6 +47,20 @@
   padding: 10px;
   width: 100%;
   margin: 10px auto;
+}
+#router-div {
+  margin: auto;
+}
+#router-links {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+  color: white;
+  margin: auto;
+}
+#router-links > li > a {
+  color: white;
 }
 
 @media (max-width: 800px) {
