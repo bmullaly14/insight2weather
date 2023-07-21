@@ -8,6 +8,7 @@ import "../App.css";
 function Home() {
   const [search, setSearch] = useState<string>("");
   const [response, setResponse] = useState<ForecastResponse>(n);
+  const [days, setDays] = useState<string>("7");
   function handleState(newValue: ForecastResponse) {
     setResponse(newValue);
   }
@@ -22,6 +23,7 @@ function Home() {
             setSearch={setSearch}
             handleState={handleState}
             setUpdated={setUpdated}
+            setDays={setDays}
           />
         </ErrorBoundary>
       </span>
@@ -31,6 +33,7 @@ function Home() {
             weather={response}
             updated={updated}
             v-show={updated}
+            Days={days}
           ></WeatherDisplay>
         </ErrorBoundary>
       </span>

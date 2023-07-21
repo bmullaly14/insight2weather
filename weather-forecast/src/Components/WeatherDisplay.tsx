@@ -8,6 +8,7 @@ import { AccordionItem } from "../model";
 const WeatherDisplay = (props: {
   weather: ForecastResponse;
   updated: boolean;
+  Days: string;
 }) => {
   const [activeAccId, setActiveAccId] = useState<number | null>(null);
   const toggleAccordion = (itemId: number) => {
@@ -39,11 +40,19 @@ const WeatherDisplay = (props: {
     return `${dateTime.getMonth()}/${dateTime.getDate()}/${dateTime.getFullYear()}`;
   }
 
-  const periods: Period[] = [];
-  const accordions: AccordionItem[] = [];
+  let periods: Period[] = [];
+  let accordions: AccordionItem[] = [];
   let n: number = 0;
 
+  let days = 7;
+  if (parseInt(props.Days) > 0) {
+    days = parseInt(props.Days);
+  }
+  let cards = days * 2;
+
   props.weather.properties.periods.forEach((p) => {
+    //debugger;
+
     let per: Period = {
       date: convertDate(p.startTime),
       number: p.number,
@@ -68,8 +77,9 @@ const WeatherDisplay = (props: {
       shortForecast: p.shortForecast,
       detailedForecast: p.detailedForecast,
     };
-
+    // while (periods.length < cards) {
     periods.push(per);
+    // }
 
     let acc: AccordionItem = {
       id: n,
@@ -86,8 +96,17 @@ const WeatherDisplay = (props: {
         windDirection: p.windDirection,
       },
     };
+    //while (accordions.length < cards) {
     accordions.push(acc);
+    // }
     n++;
+  });
+  periods = periods.filter((p) => {
+    if (periods.indexOf(p) < cards) {
+      return p;
+    } else {
+      return null;
+    }
   });
 
   const weatherReadout = periods.map((p) => {
@@ -99,6 +118,7 @@ const WeatherDisplay = (props: {
         }
       });
     }
+
     return (
       <div className="card mb-3 p">
         <div className="row-g-0 boxx">
@@ -190,7 +210,7 @@ const WeatherDisplay = (props: {
   });
 
   if (!props.updated) {
-    return null;
+    return <div></div>;
   }
   return (
     <div>

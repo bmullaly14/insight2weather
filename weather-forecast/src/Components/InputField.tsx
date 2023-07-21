@@ -12,11 +12,19 @@ interface Props {
   setSearch: React.Dispatch<React.SetStateAction<string>>;
   handleState: (newValue: ForecastResponse) => void;
   setUpdated: (wasUpdated: boolean) => void;
+  setDays: (days: string) => void;
 }
 
-const InputField = ({ search, setSearch, handleState, setUpdated }: Props) => {
+const InputField = ({
+  search,
+  setSearch,
+  handleState,
+  setUpdated,
+  setDays,
+}: Props) => {
   const [value, setNewValue] = useState<ForecastResponse>();
   const [error, setError] = useState<unknown>(null);
+
   console.log(search);
 
   const handleSubmit = async (event: React.SyntheticEvent) => {
@@ -63,6 +71,11 @@ const InputField = ({ search, setSearch, handleState, setUpdated }: Props) => {
               aria-describedby="inputGroup-sizing-default"
               onChange={(e) => setSearch(e.target.value)}
             />
+            <input
+              type="input"
+              className="input_box form-control"
+              onChange={(e) => setDays(e.target.value)}
+            ></input>
             <button
               className="btn btn-outline-secondary input_submit"
               type="submit"
