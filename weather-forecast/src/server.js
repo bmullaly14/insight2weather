@@ -89,7 +89,7 @@ app.get("/login/test", async (req, res) => {
 app.post("/login/register", async (req, res) => {
   let url = netServe + "/register";
   try {
-    let response = await axios.post(url, req.data);
+    let response = await axios.post(url, req.body);
 
     res.json(response.data);
   } catch (error) {

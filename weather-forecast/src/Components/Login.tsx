@@ -3,10 +3,13 @@ import LoginServe from "../server";
 import { User } from "../model";
 import { useState } from "react";
 import LoginApi from "../Services/LoginService.service";
+import { redirect } from "react-router-dom";
+import Greeting from "./Greeting";
 
 function Login() {
   function setName(name: string) {
     sessionStorage.setItem("username", name);
+    setUser(name);
   }
   function setPass(pass: string) {
     sessionStorage.setItem("password", pass);
@@ -14,6 +17,9 @@ function Login() {
   function setToken(token: string) {
     sessionStorage.setItem("token", token);
   }
+
+  const [isLogged, setLog] = useState<boolean>(false);
+  const [user, setUser] = useState<string>("");
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     const form = event.currentTarget;
@@ -33,6 +39,9 @@ function Login() {
       }
       console.log(response.token);
       setToken(response.token);
+      setLog(true);
+
+      redirect("http://localhost:3000/");
     } catch (error) {
       console.error(error);
     }
@@ -108,6 +117,7 @@ function Login() {
           </div>
         </div>
       </form>
+      <Greeting isRegistered={isLogged} outUser={user}></Greeting>
     </div>
   );
 }

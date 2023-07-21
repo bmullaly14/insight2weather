@@ -6,8 +6,10 @@ const url = "http://localhost:5050/login/register";
 export async function RegisterService(user: string, pass: string) {
   try {
     let current = {
-      username: user,
-      password: pass,
+      Username: user,
+      Password: pass,
+      ConfirmPassword: pass,
+      Role: "user",
     };
 
     const response = await fetch(url, {
