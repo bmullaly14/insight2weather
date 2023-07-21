@@ -1,7 +1,7 @@
 import React, { useState, Component, useRef } from "react";
 import "./App.css";
 import InputField from "./Components/InputField";
-import { ForecastResponse, LatLong, n } from "./model";
+import { ForecastResponse, LatLong, n, User } from "./model";
 import WeatherDisplay from "./Components/WeatherDisplay";
 import ErrorBoundary from "./Components/ErrorBoundary";
 //import { BrowserRouter, Router, Route, Routes } from "react-router-dom";
@@ -9,6 +9,7 @@ import Login from "./Components/Login";
 import Register from "./Components/Register";
 import { Link, Route, Routes } from "react-router-dom";
 import Home from "./Components/Home";
+//import PrivateRoute from "./Auth/PrivateRoute";
 
 const App: React.FC = () => {
   const [search, setSearch] = useState<string>("");
@@ -17,6 +18,8 @@ const App: React.FC = () => {
     setResponse(newValue);
   }
   const [updated, setUpdated] = useState<boolean>(false);
+  const [token, setToken] = useState<string>("");
+  const [user, setUser] = useState<User>();
 
   return (
     <div className="App">
@@ -41,9 +44,9 @@ const App: React.FC = () => {
       <div>
         <div>
           <Routes>
-            <Route path="/" Component={Home} />
-            <Route path="/user/register" Component={Register} />
-            <Route path="/user/login" Component={Login} />
+            <Route path="/" Component={() => <Home />} />
+            <Route path="/user/register" Component={() => <Register />} />
+            <Route path="/user/login" Component={() => <Login />} />
           </Routes>
         </div>
       </div>

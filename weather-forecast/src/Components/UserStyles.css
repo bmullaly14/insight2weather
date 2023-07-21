@@ -1,0 +1,11 @@
+.log-input {
+  width: 50%;
+  margin-bottom: 10px;
+}
+#inputDiv {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  justify-items: center;
+  align-items: center;
+}

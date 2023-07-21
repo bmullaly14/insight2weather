@@ -7,6 +7,12 @@ export const defLatLong: LatLong = {
   latitude: "error",
   longitude: "error",
 };
+export interface User {
+  id?: number;
+  name?: string;
+  pass?: string;
+  token: string;
+}
 
 export interface NWSResponse {
   "@context": [

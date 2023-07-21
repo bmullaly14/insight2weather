@@ -1,3 +1,6 @@
+// For development purposes only!
+process.env["NODE_TLS_REJECT_UNAUTHORIZED"] = 0;
+
 const bodyParser = require("body-parser");
 const express = require("express");
 const cors = require("cors");
@@ -13,6 +16,7 @@ const sqlConfig = {
     enableArithAbort: true,
   },
 };
+const netServe = "https://localhost:44380";
 
 const options = {
   setHeaders(res, path, stat) {
@@ -71,51 +75,83 @@ app.post("/api/data/nws", async (req, res) => {
   }
 });
 
-const pool = new sql.ConnectionPool(sqlConfig);
-const poolConnect = pool.connect();
-
-poolConnect
-  .then(() => {
-    console.log("Connected to the database");
-  })
-  .catch((err) => {
-    console.error("Error connecting to the database:", err);
-  });
-
-app.get("/user/test", async (req, res) => {
+app.get("/login/test", async (req, res) => {
   try {
-    const request = pool.request();
-    const result = await request.query("SELECT user_role FROM users");
-    res.json(result.recordset);
+    let url = netServe + "/login";
+    let response = await axios.get(url);
+    res.json(response.data);
   } catch (error) {
-    console.error("Error fetching data:", error);
-    res.status(500).json({ error: "Error fetching data" });
+    console.error("Error: ", error);
+    res.status(500).json({ error: "External server error" });
   }
 });
 
-app.post("/user/register", async (req, res) => {
+app.post("/login/register", async (req, res) => {
+  let url = netServe + "/register";
   try {
-    const request = pool.request();
-    let user = req.body.username;
-    let password = req.body.password;
-    let salt = req.body.salt;
-    let role = req.body.role;
-    if (user === null || password === null || salt === null || role === null) {
-      throw Error("Something's missing to register");
-    }
-    const result = await request.query(
-      `INSERT INTO users (username, password_hash, salt, user_role) OUTPUT INSERTED.[username] VALUES ('${user}', '${password}', '${salt}', '${role}') `
-    );
-    res.json(result.recordset);
+    let response = await axios.post(url, req.data);
+
+    res.json(response.data);
   } catch (error) {
-    console.error("Error registering user", error);
+    console.error("Error: ", error);
     res.status(500).json({ error: "Error registering user" });
   }
 });
 
-// app.post("/user/login", async (req, req) => {
+app.post("/login", async (req, res) => {
+  let url = netServe + "/login";
+  try {
+    let response = await axios.post(url, req.body);
+    res.json(response.data);
+  } catch (error) {
+    console.error("Error: ", error);
+    res.status(500).json({ error: "Error logging user in" });
+  }
+});
 
-// })
+// const pool = new sql.ConnectionPool(sqlConfig);
+// const poolConnect = pool.connect();
+
+// poolConnect
+//   .then(() => {
+//     console.log("Connected to the database");
+//   })
+//   .catch((err) => {
+//     console.error("Error connecting to the database:", err);
+//   });
+
+// app.get("/user/test", async (req, res) => {
+//   try {
+//     const request = pool.request();
+//     const result = await request.query("SELECT user_role FROM users");
+//     res.json(result.recordset);
+//   } catch (error) {
+//     console.error("Error fetching data:", error);
+//     res.status(500).json({ error: "Error fetching data" });
+//   }
+// });
+
+// app.post("/user/register", async (req, res) => {
+//   try {
+//     const request = pool.request();
+//     let user = req.body.username;
+//     let password = req.body.password;
+//     let salt = req.body.salt;
+//     let role = req.body.role;
+//     if (user === null || password === null || salt === null || role === null) {
+//       throw Error("Something's missing to register");
+//     }
+//     const result = await request.query(
+//       `INSERT INTO users (username, password_hash, salt, user_role) OUTPUT INSERTED.[username] VALUES ('${user}', '${password}', '${salt}', '${role}') `
+//     );
+//     res.json(result.recordset);
+//   } catch (error) {
+//     console.error("Error registering user", error);
+//     res.status(500).json({ error: "Error registering user" });
+//   }
+// });
+
+// app.post("/user/login", async (req, req) => {
 
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
